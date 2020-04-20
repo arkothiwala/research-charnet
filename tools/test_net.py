@@ -12,6 +12,7 @@ import numpy as np
 import argparse
 from charnet.config import cfg
 import matplotlib.pyplot as plt
+from tqdm import tqdm
 
 
 def save_word_recognition(word_instances, image_id, save_root, separator=chr(31)):
@@ -68,8 +69,8 @@ if __name__ == '__main__':
     charnet.eval()
     charnet.cuda()
 
-    for im_name in sorted(os.listdir(args.image_dir)):
-        print("Processing {}...".format(im_name))
+    for im_name in tqdm(sorted(os.listdir(args.image_dir))):
+        #print("Processing {}...".format(im_name))
         im_file = os.path.join(args.image_dir, im_name)
         im_original = cv2.imread(im_file)
         im, scale_w, scale_h, original_w, original_h = resize(im_original, size=cfg.INPUT_SIZE)
